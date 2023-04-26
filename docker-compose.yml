@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/error.log:/etc/nginx/error_log.log:rw
+      - ./nginx/cache/:/etc/nginx/cache:rw
+# - /etc/letsencrypt/:/etc/letsencrypt/
+    ports:
+      - 80:80
+#      - 443:443  # tls handled by cloudflare
+    restart: unless-stopped
+
+  pigallery2:
+    image: bpatrik/pigallery2:1.9.5
+    container_name: pigallery2
+    environment:
+      - NODE_ENV=production # set to 'debug' for full debug logging
+    volumes:
+      - "./pigallery2/config:/app/data/config" # CHANGE ME
+      - "db-data:/app/data/db"
+      - "./pigallery2/images:/app/data/images:ro" # CHANGE ME, ':ro' means read-only
+      - "./pigallery2/tmp:/app/data/tmp" # CHANGE ME
+    expose:
+      - "80"
+    restart: unless-stopped
+
+volumes:
+  db-data:
