@@ -376,7 +376,7 @@
         "//[enabled]": [
             "Enables sharing."
         ],
-        "enabled": true,
+        "enabled": false,
         "//[passwordProtected]": [
             "Enables password protected sharing links."
         ],
