@@ -26,10 +26,11 @@ app-language {
     display: none!important;
 }
 
-app-gallery-navbar {
+/* app-gallery-navbar {
     display: inline-block!important;
     width: 100%!important;
-}
+    box-sizing: border-box!important;
+} */
 
 app-gallery-navbar > div.mb-2 {
     margin-bottom: 0!important;

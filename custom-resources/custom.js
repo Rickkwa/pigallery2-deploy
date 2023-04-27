@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
     themeTag.rel = "stylesheet";
     themeTag.href = "/custom-resources/theme.css";
     document.head.appendChild(themeTag);
-
+    
     // Find the word "Photography" in the title and wrap it in <span> tag with white color
     let titleEl = document.querySelector(".navbar-brand strong")
     titleEl.innerHTML = titleEl.innerHTML.replace(/(photography)/ig, "<span style='color: white'>$1</span>")
-
+    
     // Edit favicon
     let faviconLink = document.querySelector("link[rel~='icon']");
     if (!faviconLink) {
@@ -17,7 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.head.appendChild(faviconLink);
     }
     faviconLink.href = '/custom-resources/favicon/favicon.ico';
-
+    
     // Analytics
+    let metricsTag = document.createElement("script")
+    metricsTag.src = "https://www.googletagmanager.com/gtag/js?id=G-KLLP7S6226";
+    metricsTag.async = true;
+    document.body.appendChild(metricsTag);
 
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KLLP7S6226');
 });
