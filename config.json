@@ -1,6 +1,6 @@
 {
     "Server": {
-        "applicationTitle": "Ricky Kwan Photography",
+        "applicationTitle": "Photography by Ricky Kwan",
         "//[publicUrl]": [
             "If you access the page form local network its good to know the public url for creating sharing link."
         ],
@@ -14,7 +14,7 @@
         "//[customHTMLHead]": [
             "Injects the content of this between the <head></head> HTML tags of the app. (You can use it add analytics or custom code to the app)."
         ],
-        "customHTMLHead": "",
+        "customHTMLHead": "let customJS = document.createElement('script'); customJS.src = '/custom-resources/custom.js'; customJS.defer = true; document.head.appendChild(customJS);",
         "sessionSecret": [
         ],
         "//[sessionTimeout]": [

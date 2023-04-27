@@ -1,0 +1,40 @@
+.bg-dark {
+    background-color: #1f2224!important;
+}
+
+.navbar-brand strong {
+    font-weight: 300!important;
+    letter-spacing: .025em!important;
+    text-transform: uppercase!important;
+    color: #c8c8c9!important;
+}
+
+.navbar-brand > img {
+    display: none!important;
+}
+
+.navbar-nav .nav-item.divider-vertical {
+    display: none!important;
+}
+
+#navbarCollapse {
+    font-weight: 300!important;
+    flex-grow: 0!important;
+}
+
+app-language {
+    display: none!important;
+}
+
+app-gallery-navbar {
+    display: inline-block!important;
+    width: 100%!important;
+}
+
+app-gallery-navbar > div.mb-2 {
+    margin-bottom: 0!important;
+}
+
+.blog-map-row {
+    display: none!important;
+}
