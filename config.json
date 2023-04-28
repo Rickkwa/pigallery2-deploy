@@ -16,6 +16,9 @@
         ],
         "customHTMLHead": "let customJS = document.createElement('script'); customJS.src = '/custom-resources/custom.js'; customJS.defer = true; document.head.appendChild(customJS);",
         "sessionSecret": [
+
+
+
         ],
         "//[sessionTimeout]": [
             "Users kept logged in for this long time."
@@ -80,7 +83,7 @@
         "//[defaultPhotoSortingMethod]": [
             "Default sorting method for photo and video in a directory results."
         ],
-        "defaultPhotoSortingMethod": "ascDate",
+        "defaultPhotoSortingMethod": "random",
         "//[defaultSearchSortingMethod]": [
             "Default sorting method for photo and video in a search results."
         ],
@@ -387,7 +390,7 @@
         "updateTimeout": 300000
     },
     "Map": {
-        "enabled": false,
+        "enabled": true,
         "//[useImageMarkers]": [
             "Map will use thumbnail images as markers instead of the default pin."
         ],
