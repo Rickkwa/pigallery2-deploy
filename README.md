@@ -9,7 +9,7 @@ Workspace setup:
 ```shell
 WORKDIR=/app
 git clone git@github.com:Rickkwa/pigallery2-deploy.git "${WORKDIR}"
-mkdir -p "${WORKDIR}/nginx/cache" "${WORKDIR}/pigallery2/images" "${WORKDIR}/pigallery2/tmp" "${WORKDIR}/pigallery2/config"
+mkdir -p "${WORKDIR}/pigallery2/images" "${WORKDIR}/pigallery2/tmp" "${WORKDIR}/pigallery2/config"
 ```
 
 Then follow these steps:
