@@ -5,13 +5,14 @@ services:
     container_name: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/error.log:/etc/nginx/error_log.log:rw
       - ./nginx/cache/:/etc/nginx/cache:rw
       - ./custom-resources:/app/custom-resources
-# - /etc/letsencrypt/:/etc/letsencrypt/
+      # - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - 80:80
-#      - 443:443  # tls handled by cloudflare
+      # - 443:443  # tls handled by cloudflare
+    expose:
+      - 8080
     restart: unless-stopped
 
   pigallery2:
