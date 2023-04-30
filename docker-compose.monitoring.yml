@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  prometheus:
+    image: bitnami/prometheus:2.43.0
+    container_name: prometheus
+    volumes:
+      - "prom-data:/opt/bitnami/prometheus/data"
+      - "./prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml"
+    ports:
+      - 127.0.0.1:9090:9090
+      # - 9090:9090
+    expose:
+      - 9090
+    restart: unless-stopped
+    command:
+      - "--config.file=/opt/bitnami/prometheus/conf/prometheus.yml"
+      - "--storage.tsdb.retention=21d"
+
+  grafana:
+    image: grafana/grafana:9.5.1
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - 127.0.0.1:3000:3000
+      # - 3000:3000
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    environment:
+      - "GF_SECURITY_ADMIN_PASSWORD=N0nDEf_ault2468Pass-Word"
+
+volumes:
+  prom-data:
+    name: pigallery2_prom_data
+
+  grafana-data:
+    name: pigallery2_grafana_data
