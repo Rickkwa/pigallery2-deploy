@@ -4,7 +4,7 @@ services:
     image: localhost/openresty-prometheus:latest
     hostname: photos.rickykwan.ca  # used in server_name
     build:
-      context: nginx/docker/openresty
+      context: nginx/docker
     container_name: nginx
     volumes:
       - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
@@ -17,7 +17,9 @@ services:
     restart: unless-stopped
 
   pigallery2:
-    image: bpatrik/pigallery2:1.9.5
+    image: localhost/pigallery2:1.9.5
+    build:
+      context: pigallery/docker
     container_name: pigallery2
     environment:
       - NODE_ENV=production # set to 'debug' for full debug logging
