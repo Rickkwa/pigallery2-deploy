@@ -1,0 +1,1 @@
+0 4 * * * /usr/sbin/logrotate /app/logrotate.d/nginx-rotate.conf

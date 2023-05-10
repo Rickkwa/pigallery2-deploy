@@ -48,8 +48,8 @@ services:
       - grafana-data:/var/lib/grafana
       - "./grafana/ds.yml:/etc/grafana/provisioning/datasources/ds.yaml:ro"
     ports:
-      #- 127.0.0.1:3000:3000
-      - 3000:3000 # TODO: Comment this out
+      - 127.0.0.1:3000:3000
+      #- 3000:3000
     restart: unless-stopped
     depends_on:
       - prometheus
