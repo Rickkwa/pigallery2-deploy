@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     volumes:
       - "./promtail/config.yml:/etc/promtail/config.yml:ro"
-      - "logs-shared:/logs"
+      - "nginx-logs-shared:/nginx-logs"
     command: "-config.file=/etc/promtail/config.yml"
     expose:
       - 9080
@@ -63,8 +63,8 @@ volumes:
   grafana-data:
     name: pigallery2_grafana_data
 
-  logs-shared:
-    name: pigallery2_logs_shared
+  nginx-logs-shared:
+    name: pigallery2_nginx_logs_shared
 
   loki-data:
     name: pigallery2_loki_data

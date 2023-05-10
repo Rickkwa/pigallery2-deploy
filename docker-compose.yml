@@ -11,7 +11,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
       - ./nginx/custom-resources:/app/custom-resources
-      - "logs-shared:/app/logs"
+      - "nginx-logs-shared:/app/logs"
       # - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - 127.0.0.1:8080:8080
@@ -39,5 +39,5 @@ volumes:
   db-data:
     name: pigallery2_db_data
 
-  logs-shared:
-    name: pigallery2_logs_shared
+  nginx-logs-shared:
+    name: pigallery2_nginx_logs_shared
