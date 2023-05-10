@@ -17,14 +17,39 @@ services:
       - "--config.file=/opt/bitnami/prometheus/conf/prometheus.yml"
       - "--storage.tsdb.retention=21d"
 
+  promtail:
+    image: bitnami/promtail:2.8.2
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - "./promtail/config.yml:/etc/promtail/config.yml:ro"
+      - "logs-shared:/logs"
+    command: "-config.file=/etc/promtail/config.yml"
+    expose:
+      - 9080
+    depends_on:
+      - loki
+
+  loki:
+    image: bitnami/grafana-loki:2.8.2
+    container_name: loki
+    expose:
+      - 3100
+    volumes:
+      - "./loki/local-config.yml:/etc/loki/local-config.yaml:ro"
+      - "loki-data:/bitnami/grafana-loki/loki:rw"
+    command: "-config.file=/etc/loki/local-config.yaml"
+    restart: unless-stopped
+
   grafana:
     image: grafana/grafana:9.5.1
     container_name: grafana
     volumes:
       - grafana-data:/var/lib/grafana
+      - "./grafana/ds.yml:/etc/grafana/provisioning/datasources/ds.yaml:ro"
     ports:
-      - 127.0.0.1:3000:3000
-      # - 3000:3000
+      #- 127.0.0.1:3000:3000
+      - 3000:3000 # TODO: Comment this out
     restart: unless-stopped
     depends_on:
       - prometheus
@@ -37,3 +62,9 @@ volumes:
 
   grafana-data:
     name: pigallery2_grafana_data
+
+  logs-shared:
+    name: pigallery2_logs_shared
+
+  loki-data:
+    name: pigallery2_loki_data
