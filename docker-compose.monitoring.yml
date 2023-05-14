@@ -46,7 +46,9 @@ services:
     container_name: grafana
     volumes:
       - grafana-data:/var/lib/grafana
-      - "./grafana/ds.yml:/etc/grafana/provisioning/datasources/ds.yaml:ro"
+      - "./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/:ro"
+      - "./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards/:ro"
+      - "./grafana/dashboards/:/var/lib/grafana/dashboards/:ro"
     ports:
       - 127.0.0.1:3000:3000
       #- 3000:3000
