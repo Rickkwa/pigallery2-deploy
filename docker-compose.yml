@@ -6,9 +6,12 @@ services:
     build:
       context: nginx/docker
     container_name: nginx
+    environment:
+      TZ: America/Toronto
     volumes:
       - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
       - ./nginx/custom-resources:/app/custom-resources
+      - "nginx-logs-shared:/app/logs"
       # - /etc/letsencrypt/:/etc/letsencrypt/
     ports:
       - 127.0.0.1:8080:8080
@@ -35,3 +38,6 @@ services:
 volumes:
   db-data:
     name: pigallery2_db_data
+
+  nginx-logs-shared:
+    name: pigallery2_nginx_logs_shared
