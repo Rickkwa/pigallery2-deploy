@@ -1121,7 +1121,7 @@
     ]
   },
   "timezone": "",
-  "title": "Nginx Metrics and Logs",
+  "title": "Bootstrap: Nginx Metrics and Logs",
   "uid": "bdcfab46-c892-47da-b582-a547eacbe829",
   "version": 14,
   "weekStart": ""
