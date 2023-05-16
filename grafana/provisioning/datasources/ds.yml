@@ -9,6 +9,8 @@ datasources:
     isDefault: true
     version: 1
     editable: true
+    jsonData:
+      timeInterval: 60s
 
   - name: Loki
     type: loki

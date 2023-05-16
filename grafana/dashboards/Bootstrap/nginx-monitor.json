@@ -98,6 +98,207 @@
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
+            "axisLabel": "Requests per sec",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ABS"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Absolute Number of Requests"
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "rate(nginx_gallery_page_load[120s]) * 60",
+          "legendFormat": "rate nginx_gallery_page_load",
+          "range": true,
+          "refId": "RATE"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "nginx_gallery_page_load",
+          "hide": false,
+          "legendFormat": "absolute nginx_gallery_page_load",
+          "range": true,
+          "refId": "ABS"
+        }
+      ],
+      "title": "Gallery Page Loads",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "valueMode": "text"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum by (le) (nginx_http_request_duration_seconds_bucket{location=~\"^(${location:pipe})$\"})",
+          "format": "heatmap",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{le}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "request duration (s) (${location:pipe})",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -143,9 +344,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 8,
-        "x": 0,
+        "x": 16,
         "y": 0
       },
       "id": 1,
@@ -169,10 +370,10 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^2[0-9]+$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "editorMode": "code",
+          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^2[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
           "hide": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{location}} ({{status}})",
           "range": true,
           "refId": "A"
         }
@@ -238,10 +439,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 8,
-        "x": 8,
-        "y": 0
+        "x": 16,
+        "y": 6
       },
       "id": 7,
       "options": {
@@ -265,14 +466,145 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^3[0-9]+$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^3[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
           "hide": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{location}} ({{status}})",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "nginx_http_requests_total (300s)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Requests per sec",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ABS"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "Absolute Number of Requests"
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "rate(nginx_gallery_image_view[120s]) * 60",
+          "legendFormat": "rate nginx_gallery_image_view",
+          "range": true,
+          "refId": "RATE"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "nginx_gallery_image_view",
+          "hide": false,
+          "legendFormat": "absolute nginx_gallery_image_view",
+          "range": true,
+          "refId": "ABS"
+        }
+      ],
+      "title": "Gallery Image Views",
       "type": "timeseries"
     },
     {
@@ -333,10 +665,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 8,
         "x": 16,
-        "y": 0
+        "y": 12
       },
       "id": 8,
       "options": {
@@ -360,222 +692,15 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^(4|5)[0-9]+$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^(4|5)[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
           "hide": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{location}} ({{status}})",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "nginx_http_requests_total (400s, 500s)",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 4,
-        "x": 0,
-        "y": 7
-      },
-      "id": 4,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "valueMode": "text"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "nginx_http_request_duration_seconds_bucket{location=\"/\"}",
-          "format": "heatmap",
-          "hide": false,
-          "legendFormat": "{{le}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "request duration (s) (/)",
-      "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 4,
-        "x": 4,
-        "y": 7
-      },
-      "id": 5,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "valueMode": "text"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "nginx_http_request_duration_seconds_bucket{location=\"/pgapi\"}",
-          "format": "heatmap",
-          "hide": false,
-          "legendFormat": "{{le}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "request duration (s) (/pgapi)",
-      "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 4,
-        "x": 8,
-        "y": 7
-      },
-      "id": 6,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "valueMode": "text"
-      },
-      "pluginVersion": "9.5.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "nginx_http_request_duration_seconds_bucket{location=\"/custom-resources\"}",
-          "format": "heatmap",
-          "hide": false,
-          "legendFormat": "{{le}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "request duration (s) (/custom-resources)",
-      "type": "bargauge"
     },
     {
       "datasource": {
@@ -635,10 +760,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 7
+        "h": 9,
+        "w": 16,
+        "x": 0,
+        "y": 14
       },
       "id": 3,
       "options": {
@@ -661,10 +786,10 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "editorMode": "builder",
-          "expr": "label_replace(\r\n    label_replace(\r\n        label_replace(\r\n            rate(nginx_http_requests_total[5m]),\r\n        \"instance\", \"\", \"instance\", \".*\"),\r\n    \"host\", \"\", \"host\", \".*\"),\r\n\"job\", \"\", \"job\", \".*\")",
+          "editorMode": "code",
+          "expr": "label_replace(\r\n    label_replace(\r\n        label_replace(\r\n            rate(nginx_http_requests_total[120s]) * 60,\r\n        \"instance\", \"\", \"instance\", \".*\"),\r\n    \"host\", \"\", \"host\", \".*\"),\r\n\"job\", \"\", \"job\", \".*\")",
           "hide": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{location}} ({{status}})",
           "range": true,
           "refId": "A"
         }
@@ -730,10 +855,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 17
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 18
       },
       "id": 2,
       "options": {
@@ -755,8 +880,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(\r\n    label_replace(\r\n        nginx_http_connections,\r\n    \"instance\", \"\", \"instance\", \".*\"),\r\n\"__name__\", \"\", \"__name__\", \".*\")",
-          "legendFormat": "__auto",
+          "expr": "label_replace(label_replace(nginx_http_connections{job=\"photos-nginx\"}, \"instance\", \"\", \"instance\", \".*\"), \"__name__\", \"\", \"__name__\", \".*\")",
+          "legendFormat": "{{state}}",
           "range": true,
           "refId": "A"
         }
@@ -773,7 +898,7 @@
         "h": 14,
         "w": 21,
         "x": 0,
-        "y": 21
+        "y": 23
       },
       "id": 9,
       "options": {
@@ -839,7 +964,7 @@
         "h": 14,
         "w": 3,
         "x": 21,
-        "y": 21
+        "y": 23
       },
       "id": 11,
       "options": {
@@ -863,11 +988,8 @@
           },
           "editorMode": "code",
           "expr": "{component=\"nginx\", cf_connecting_ip != \"\", status=~\"^2.*\"}",
-          "hide": false,
-          "legendFormat": "",
           "queryType": "range",
-          "refId": "A",
-          "resolution": 1
+          "refId": "A"
         }
       ],
       "title": "Status 200s Unique IPs",
@@ -956,6 +1078,30 @@
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
+      },
+      {
+        "allValue": ".+",
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values(location)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Location",
+        "multi": true,
+        "name": "location",
+        "options": [],
+        "query": {
+          "query": "label_values(location)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
@@ -977,6 +1123,6 @@
   "timezone": "",
   "title": "Nginx Metrics and Logs",
   "uid": "bdcfab46-c892-47da-b582-a547eacbe829",
-  "version": 37,
+  "version": 14,
   "weekStart": ""
 }
