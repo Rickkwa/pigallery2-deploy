@@ -9,6 +9,9 @@ datasources:
     isDefault: true
     version: 1
     editable: true
+    uid: UID_DS_PROMETHEUS
+    jsonData:
+      timeInterval: 60s
 
   - name: Loki
     type: loki
@@ -19,3 +22,4 @@ datasources:
     isDefault: false
     version: 1
     editable: true
+    uid: UID_DS_LOKI
