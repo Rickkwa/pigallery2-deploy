@@ -9,6 +9,7 @@ datasources:
     isDefault: true
     version: 1
     editable: true
+    uid: UID_DS_PROMETHEUS
     jsonData:
       timeInterval: 60s
 
@@ -21,3 +22,4 @@ datasources:
     isDefault: false
     version: 1
     editable: true
+    uid: UID_DS_LOKI

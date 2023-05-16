@@ -15,6 +15,20 @@
       "type": "datasource",
       "pluginId": "loki",
       "pluginName": "Loki"
+    },
+    {
+      "name": "VAR_DS_PROMETHEUS",
+      "type": "constant",
+      "label": "DS_PROMETHEUS",
+      "value": "UID_DS_PROMETHEUS",
+      "description": ""
+    },
+    {
+      "name": "VAR_DS_LOKI",
+      "type": "constant",
+      "label": "DS_LOKI",
+      "value": "UID_DS_LOKI",
+      "description": ""
     }
   ],
   "__elements": {},
@@ -948,8 +962,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1102,6 +1115,44 @@
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
+      },
+      {
+        "hide": 2,
+        "name": "DS_PROMETHEUS",
+        "query": "${VAR_DS_PROMETHEUS}",
+        "skipUrlSync": false,
+        "type": "constant",
+        "current": {
+          "value": "${VAR_DS_PROMETHEUS}",
+          "text": "${VAR_DS_PROMETHEUS}",
+          "selected": false
+        },
+        "options": [
+          {
+            "value": "${VAR_DS_PROMETHEUS}",
+            "text": "${VAR_DS_PROMETHEUS}",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "hide": 2,
+        "name": "DS_LOKI",
+        "query": "${VAR_DS_LOKI}",
+        "skipUrlSync": false,
+        "type": "constant",
+        "current": {
+          "value": "${VAR_DS_LOKI}",
+          "text": "${VAR_DS_LOKI}",
+          "selected": false
+        },
+        "options": [
+          {
+            "value": "${VAR_DS_LOKI}",
+            "text": "${VAR_DS_LOKI}",
+            "selected": false
+          }
+        ]
       }
     ]
   },
@@ -1122,7 +1173,7 @@
   },
   "timezone": "",
   "title": "Bootstrap: Nginx Metrics and Logs",
-  "uid": "bdcfab46-c892-47da-b582-a547eacbe829",
-  "version": 14,
+  "uid": "UID_DASHBOARD_BS_NGINX_METRICS_AND_LOGS",
+  "version": 1,
   "weekStart": ""
 }
