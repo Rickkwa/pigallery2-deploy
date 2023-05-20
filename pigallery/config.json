@@ -15,11 +15,6 @@
             "Injects the content of this between the <head></head> HTML tags of the app. (You can use it add analytics or custom code to the app)."
         ],
         "customHTMLHead": "let customJS = document.createElement('script'); customJS.src = '/custom-resources/custom.js'; customJS.defer = true; document.head.appendChild(customJS);",
-        "sessionSecret": [
-
-
-
-        ],
         "//[sessionTimeout]": [
             "Users kept logged in for this long time."
         ],
