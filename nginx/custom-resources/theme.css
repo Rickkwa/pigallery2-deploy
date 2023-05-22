@@ -39,3 +39,7 @@ app-gallery-navbar > div.mb-2 {
 .blog-map-row {
     display: none!important;
 }
+
+app-gallery-search {
+    display: none;
+}
