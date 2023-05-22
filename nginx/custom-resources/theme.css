@@ -1,3 +1,7 @@
+body {
+    overflow-y: scroll!important;  /* Prevent Search modal popup from removing the scrollbar */
+}
+
 .bg-dark {
     background-color: #1f2224!important;
 }
@@ -40,6 +44,24 @@ app-gallery-navbar > div.mb-2 {
     display: none!important;
 }
 
-app-gallery-search {
+app-gallery-search > form[role="search"] {
+    padding: 0;
+}
+
+app-gallery-search-field-base.form-control, app-gallery-search > form > div > button:first-of-type {
     display: none;
+}
+
+app-gallery-search > form > div > button:last-of-type {
+    background-color: inherit;
+    border: none;
+    color: #ffffff8c;
+}
+
+app-gallery-search > form > div > button:last-of-type:hover, app-gallery-search > form > div > button:last-of-type:focus, app-gallery-search > form > div > button:last-of-type:active,
+app-gallery-search > form > div > button:last-of-type:focus-visible {
+    background-color: inherit;
+    color: #c8c8c9;
+    box-shadow: none;
+    border: none;
 }
