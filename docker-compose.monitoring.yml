@@ -8,8 +8,7 @@ services:
       - "prom-data:/opt/bitnami/prometheus/data"
       - "./prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml"
     ports:
-      - 127.0.0.1:9090:9090
-      # - 9090:9090
+      - ${MONITORING_ADDRESS:-127.0.0.1}:9090:9090
     expose:
       - 9090
     restart: unless-stopped
@@ -50,8 +49,7 @@ services:
       - "./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards/:ro"
       - "./grafana/dashboards/:/var/lib/grafana/dashboards/:ro"
     ports:
-      - 127.0.0.1:3000:3000
-      #- 3000:3000
+      - ${MONITORING_ADDRESS:-127.0.0.1}:3000:3000
     restart: unless-stopped
     depends_on:
       - prometheus
