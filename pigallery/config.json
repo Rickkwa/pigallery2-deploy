@@ -330,7 +330,7 @@
         "//[enabled]": [
             "Enables searching."
         ],
-        "enabled": false,
+        "enabled": true,
         "//[searchCacheTimeout]": [
             "Search cache timeout."
         ],
