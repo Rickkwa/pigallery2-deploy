@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   nginx:
-    image: localhost/openresty-prometheus:latest
+    image: localhost/openresty-nginx:latest
     hostname: photos.rickykwan.ca  # used in server_name
     build:
       context: nginx/docker
