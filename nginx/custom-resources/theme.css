@@ -48,8 +48,8 @@ app-gallery-navbar > div.mb-2 {
 app-gallery-map {
     display: inline-block!important;
     position: relative!important;
-    height: inherit!important;
-    width: inherit!important;
+    height: auto!important;
+    width: auto!important;
     right: 0!important;
 }
 /* End map button revamp */
