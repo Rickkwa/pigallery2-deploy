@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         photoCountEl.insertAdjacentElement("afterend", divider.cloneNode(true));
         console.debug("Map is ready, clearing interval", mapIntervalID);
         clearInterval(mapIntervalID);
-    }, 50);
+    }, 200);
 
     // Analytics
     let metricsTag = document.createElement("script")
