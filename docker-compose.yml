@@ -9,14 +9,14 @@ services:
     environment:
       TZ: America/Toronto
     volumes:
-      - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
-      - ./nginx/custom-resources:/app/custom-resources
+      - "./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+      - "./nginx/custom-resources:/app/custom-resources"
       - "nginx-logs-shared:/app/logs"
-      # - /etc/letsencrypt/:/etc/letsencrypt/
+      - "./_userdata/ssl/:/app/ssl/:ro"
     ports:
       - 127.0.0.1:8080:8080
       - 80:80
-      # - 443:443  # tls handled by cloudflare
+      - 443:443
     restart: unless-stopped
 
   pigallery2:
