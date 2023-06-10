@@ -44,6 +44,16 @@ app-gallery-navbar > div.mb-2 {
     display: none!important;
 }
 
+/* Map button revamp */
+app-gallery-map {
+    display: inline-block!important;
+    position: relative!important;
+    height: auto!important;
+    width: auto!important;
+    right: 0!important;
+}
+/* End map button revamp */
+
 app-gallery-search > form[role="search"] {
     padding: 0;
 }

@@ -23,6 +23,28 @@ document.addEventListener("DOMContentLoaded", function () {
     searchExpandBtn.className = searchExpandBtn.className.replace("btn-light", "").replace("btn", "");
     searchExpandBtn.querySelector("span").className = searchExpandBtn.querySelector("span").className.replace("oi-chevron-bottom", "oi-magnifying-glass");
 
+    // Change maps icon and move it to breadcrumb bar rightside
+    // This is paired with some css changes in theme.css
+    let mapIntervalID = setInterval(function() {
+        let mapEl = document.querySelector("app-gallery-map");
+        if (!mapEl) {
+            console.debug("Map not ready yet");
+            return;
+        }
+        let mapBtn = mapEl.querySelector("div#map");
+        // Change icon and styling
+        mapBtn.innerHTML = "<span class='oi oi-map'></span>";
+        mapBtn.className = mapBtn.className + " btn btn-navbar";
+        mapBtn.querySelector("span.oi").setAttribute("title", "Map");
+        // Move to bar
+        let photoCountEl = document.querySelector("app-gallery-navbar div.photos-count");
+        let divider = document.querySelector("app-gallery-navbar div.divider")
+        photoCountEl.insertAdjacentElement("afterend", mapEl);
+        photoCountEl.insertAdjacentElement("afterend", divider.cloneNode(true));
+        console.debug("Map is ready, clearing interval", mapIntervalID);
+        clearInterval(mapIntervalID);
+    }, 200);
+
     // Analytics
     let metricsTag = document.createElement("script")
     metricsTag.src = "https://www.googletagmanager.com/gtag/js?id=G-KLLP7S6226";

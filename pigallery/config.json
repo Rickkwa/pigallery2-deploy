@@ -97,7 +97,7 @@
             ],
             "showItemCount": true,
             "//[links]": [
-                "Visible links in the top menu."
+                "Visible links in the top menu. Available links.type: 'albums', 'faces', 'gallery', 'search', 'url'. And if type url, then link[0].name and link[0].url are properties."
             ],
             "links": [
                 {
