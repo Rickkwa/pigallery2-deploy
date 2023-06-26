@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -308,7 +307,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^2[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "expr": "nginx_http_requests_total{status=~\"^2[0-9]+$\", location=~\"^(${location:pipe})$\"}",
           "hide": false,
           "legendFormat": "{{location}} ({{status}})",
           "range": true,
@@ -403,7 +402,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^3[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "expr": "nginx_http_requests_total{status=~\"^3[0-9]+$\", location=~\"^(${location:pipe})$\"}",
           "hide": false,
           "legendFormat": "{{location}} ({{status}})",
           "range": true,
@@ -629,7 +628,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(label_replace(label_replace(nginx_http_requests_total{status=~\"^(4|5)[0-9]+$\", location=~\"^(${location:pipe})$\"}, \"instance\", \"\", \"instance\", \".*\"), \"host\", \"\", \"host\", \".*\"), \"job\", \"\", \"job\", \".*\"), \"__name__\", \"\", \"__name__\", \"(.*)\")",
+          "expr": "nginx_http_requests_total{status=~\"^(4|5)[0-9]+$\", location=~\"^(${location:pipe})$\"}",
           "hide": false,
           "legendFormat": "{{location}} ({{status}})",
           "range": true,
@@ -724,7 +723,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "label_replace(\r\n    label_replace(\r\n        label_replace(\r\n            rate(nginx_http_requests_total[120s]) * 60,\r\n        \"instance\", \"\", \"instance\", \".*\"),\r\n    \"host\", \"\", \"host\", \".*\"),\r\n\"job\", \"\", \"job\", \".*\")",
+          "expr": "rate(nginx_http_requests_total{host!=\"_\"}[120s]) * 60",
           "hide": false,
           "legendFormat": "{{location}} ({{status}})",
           "range": true,
@@ -817,7 +816,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(nginx_http_connections{job=\"photos-nginx\"}, \"instance\", \"\", \"instance\", \".*\"), \"__name__\", \"\", \"__name__\", \".*\")",
+          "expr": "nginx_http_connections{job=\"photos-nginx\"}",
           "legendFormat": "{{state}}",
           "range": true,
           "refId": "A"
@@ -855,12 +854,12 @@
             "uid": "${DS_LOKI}"
           },
           "editorMode": "code",
-          "expr": "{component=\"nginx\", status=~\"(${logs_status_filter:pipe})\"}",
+          "expr": "{component=\"nginx\", status=~\"(${logs_status_filter:pipe})\", cf_connecting_ip=~\"${ip_regex}\"}",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Nginx Logs (status: ${logs_status_filter:pipe})",
+      "title": "Nginx Logs (status: ${logs_status_filter:pipe}; ip: ${ip_regex})",
       "type": "logs"
     },
     {
@@ -924,7 +923,7 @@
             "uid": "${DS_LOKI}"
           },
           "editorMode": "code",
-          "expr": "{component=\"nginx\", cf_connecting_ip != \"\", status=~\"^2.*\"}",
+          "expr": "{component=\"nginx\", cf_connecting_ip != \"\", status=~\"^2.*\", referer!=\"\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -962,7 +961,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -971,7 +970,7 @@
       {
         "allValue": ".*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -1019,9 +1018,13 @@
       {
         "allValue": ".+",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -1043,6 +1046,27 @@
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": ".*",
+          "value": ".*"
+        },
+        "description": "Filter logs by cf_connecting_ip matching the given regex.",
+        "hide": 0,
+        "label": "IP Regex (Logs)",
+        "name": "ip_regex",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": ".*",
+        "skipUrlSync": false,
+        "type": "textbox"
       },
       {
         "hide": 2,
@@ -1078,6 +1102,6 @@
   "timezone": "",
   "title": "Bootstrap: Nginx Metrics and Logs",
   "uid": "UID_DASHBOARD_BS_NGINX_METRICS_AND_LOGS",
-  "version": 1,
+  "version": 4,
   "weekStart": ""
 }
