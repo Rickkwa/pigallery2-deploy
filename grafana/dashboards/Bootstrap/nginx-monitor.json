@@ -961,7 +961,7 @@
       "type": "table"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1050,8 +1050,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": ".*",
+          "value": ".*"
         },
         "description": "Filter logs by cf_connecting_ip matching the given regex.",
         "hide": 0,
@@ -1059,12 +1059,12 @@
         "name": "ip_regex",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": ".*",
             "value": ".*"
           }
         ],
-        "query": "",
+        "query": ".*",
         "skipUrlSync": false,
         "type": "textbox"
       },
@@ -1102,6 +1102,6 @@
   "timezone": "",
   "title": "Bootstrap: Nginx Metrics and Logs",
   "uid": "UID_DASHBOARD_BS_NGINX_METRICS_AND_LOGS",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
