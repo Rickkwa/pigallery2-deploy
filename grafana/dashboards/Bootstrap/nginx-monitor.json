@@ -923,7 +923,7 @@
             "uid": "${DS_LOKI}"
           },
           "editorMode": "code",
-          "expr": "{component=\"nginx\", cf_connecting_ip != \"\", status=~\"^2.*\"}",
+          "expr": "{component=\"nginx\", cf_connecting_ip != \"\", status=~\"^2.*\", referer!=\"\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -961,7 +961,7 @@
       "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1055,7 +1055,7 @@
         },
         "description": "Filter logs by cf_connecting_ip matching the given regex.",
         "hide": 0,
-        "label": "Log IP Regex",
+        "label": "IP Regex (Logs)",
         "name": "ip_regex",
         "options": [
           {
@@ -1102,6 +1102,6 @@
   "timezone": "",
   "title": "Bootstrap: Nginx Metrics and Logs",
   "uid": "UID_DASHBOARD_BS_NGINX_METRICS_AND_LOGS",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
