@@ -96,19 +96,26 @@ app-gallery-map div.overlay {
     height: inherit!important;
     position: inherit!important;
     opacity: inherit!important;
+    border: none!important;
+    background-color: inherit!important;
+    color: rgba(var(--bs-body-color-rgb))!important;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out!important; /* Ported over */
 }
-app-gallery-map:hover {
+app-gallery-map div.overlay ng-icon {
+    width: var(--ng-icon__size)!important;
+    height: var(--ng-icon__size)!important;
+    display: inline-block!important;
+}
+app-gallery-map div.overlay:hover {
     color: var(--bs-btn-hover-color)!important;
+    background-color: var(--bs-btn-hover-bg)!important;
 }
 app-gallery-map {
     height: inherit!important;
     width: inherit!important;
     right: inherit!important;
     position: inherit!important;
-    border: none!important;
     display: inline-block!important;
-    color: rgba(var(--bs-body-color-rgb))!important;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out!important; /* Ported over */
 }
 app-gallery-map .control-button svg {
     color: rgba(var(--bs-body-color-rgb))!important;
