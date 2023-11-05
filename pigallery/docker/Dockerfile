@@ -1,4 +1,4 @@
-FROM bpatrik/pigallery2:1.9.5
+FROM bpatrik/pigallery2:2.0.0
 
 RUN groupadd --gid 9999 appuser && \
     useradd --uid 9999 --gid 9999 -m appuser && \

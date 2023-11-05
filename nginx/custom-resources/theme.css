@@ -1,11 +1,25 @@
+:root {
+    --ng-icon__size: 1.0em;
+    --bs-border-radius: 4px;
+}
+
+:root,[data-bs-theme=light] {
+    --bs-dark-rgb: 31, 34, 36; /* Navbar bg colour */
+}
+
+:root,[data-bs-theme=dark] {
+    --bs-dark-rgb: 31, 34, 36; /* Navbar bg colour */
+}
+
 body {
-    overflow-y: scroll!important;  /* Prevent Search modal popup from removing the scrollbar */
+    overflow-y: scroll!important;  /* When search modal pops up, the scrollbar gets removed. This line prevents that. */
 }
 
-.bg-dark {
-    background-color: #1f2224!important;
+div.divider {
+    border-left: 1px solid rgba(108, 117, 125, 0.4)!important;
 }
 
+/* Logo */
 .navbar-brand strong {
     font-weight: 300!important;
     letter-spacing: .025em!important;
@@ -13,7 +27,7 @@ body {
     color: #c8c8c9!important;
 }
 
-.navbar-brand > img {
+.navbar-brand > app-icon {
     display: none!important;
 }
 
@@ -21,57 +35,86 @@ body {
     display: none!important;
 }
 
+/* Links on the right-side */
 #navbarCollapse {
     font-weight: 300!important;
     flex-grow: 0!important;
 }
 
+/* Hide Language */
 app-language {
-    display: none!important;
+    display: none;
 }
 
-/* app-gallery-navbar {
-    display: inline-block!important;
-    width: 100%!important;
-    box-sizing: border-box!important;
-} */
+/* Hide Hamburger menu */
+#navbarCollapse > div > ul > .nav-item.dropdown {
+    display: none;
+}
 
 app-gallery-navbar > div.mb-2 {
     margin-bottom: 0!important;
 }
 
-.blog-map-row {
-    display: none!important;
-}
-
-/* Map button revamp */
-app-gallery-map {
-    display: inline-block!important;
-    position: relative!important;
-    height: auto!important;
-    width: auto!important;
-    right: 0!important;
-}
-/* End map button revamp */
-
+/* Search bar */
 app-gallery-search > form[role="search"] {
     padding: 0;
 }
-
 app-gallery-search-field-base.form-control, app-gallery-search > form > div > button:first-of-type {
     display: none;
 }
-
 app-gallery-search > form > div > button:last-of-type {
     background-color: inherit;
     border: none;
     color: #ffffff8c;
 }
-
-app-gallery-search > form > div > button:last-of-type:hover, app-gallery-search > form > div > button:last-of-type:focus, app-gallery-search > form > div > button:last-of-type:active,
+app-gallery-search > form > div > button:last-of-type:hover,
+app-gallery-search > form > div > button:last-of-type:focus,
+app-gallery-search > form > div > button:last-of-type:active,
 app-gallery-search > form > div > button:last-of-type:focus-visible {
-    background-color: inherit;
-    color: #c8c8c9;
+    background-color: inherit!important;
+    color: #c8c8c9!important;
     box-shadow: none;
     border: none;
+}
+
+/* Shrink the image tiles more subtly */
+app-gallery-grid-photo:hover {
+    /* scale: 99.2%!important; */
+    scale: 99.2%!important;
+}
+app-gallery-grid-photo, app-gallery-grid-photo:hover {
+    transition: scale 0.2s ease-out!important;
+}
+app-gallery-grid-photo .info {
+    animation-duration: 0.2s!important; /* The filename box that comes up on hover */
+}
+
+/* CSS changes to support new map icon in breadcrumb bar */
+app-gallery-map div.overlay {
+    transform: inherit!important;
+    width: inherit!important;
+    height: inherit!important;
+    position: inherit!important;
+    opacity: inherit!important;
+}
+app-gallery-map:hover {
+    color: var(--bs-btn-hover-color)!important;
+}
+app-gallery-map {
+    height: inherit!important;
+    width: inherit!important;
+    right: inherit!important;
+    position: inherit!important;
+    border: none!important;
+    display: inline-block!important;
+    color: rgba(var(--bs-body-color-rgb))!important;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out!important; /* Ported over */
+}
+app-gallery-map .control-button svg {
+    color: rgba(var(--bs-body-color-rgb))!important;
+}
+
+/* Hide blog */
+.blog-map-row {
+    display: none!important;
 }

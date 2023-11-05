@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
   pigallery2:
-    image: localhost/pigallery2:1.9.5
+    image: localhost/pigallery2:2.0.0
     build:
       context: pigallery/docker
     container_name: pigallery2
